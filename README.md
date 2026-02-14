@@ -70,7 +70,7 @@ User Browser (HTML/CSS/JS) <--> LocalStorage (Data Persistence)
 5.  **Activity:** User selects Tool (Journal/Game) → Completes activity → Returns to Home.
 
 ## Project Demo
-**Video:** [Link]
+**Video:** []
 
 ## AI Tools Used
 **Tool:** Cursor
