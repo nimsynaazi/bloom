@@ -1292,9 +1292,6 @@ function initializeJournalSimple() {
     const today = new Date().toDateString();
     const todayEntry = entries.find(e => new Date(e.date).toDateString() === today);
     const ta = document.getElementById("journal-entry");
-    if (typeof JOURNAL_PLACEHOLDER !== "undefined") {
-        ta.placeholder = JOURNAL_PLACEHOLDER;
-    }
     ta.value = todayEntry ? (todayEntry.text || "") : "";
     if (typeof autoResize === "function") {
         ta.addEventListener("input", () => autoResize(ta));
