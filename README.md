@@ -3,11 +3,11 @@
 # bloom! �
 
 ## Basic Details
-**Team Name:** [Name]
+**Team Name:** [Nimsy]
 
-**Team Members:** [Member 1 - College], [Member 2 - College]
+**Team Members:** [nimsy,jamia]
 
-**Hosted Project Link:** [Link]
+**Hosted Project Link:** https://bloom-tan.vercel.app
 
 **Project Description:** bloom! is a gentle mental wellness web app designed to be a daily companion. It helps users track moods, build healthy habits, and find calm through interactive activities like breathing exercises and journaling, all in a soothing, personalized environment.
 
