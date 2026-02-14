@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>blooom! - Mental Wellness</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- Welcome Screen -->
+    <div id="welcome-screen" class="screen active">
+        <div class="welcome-container">
+            <div class="welcome-content">
+                <h1 class="bloom-logo">bloom!</h1>
+                <p class="tagline">Breathe. Bloom. Be Well.</p>
+                <div class="floating-flowers">
+                    <div class="flower flower-1">🌸</div>
+                    <div class="flower flower-2">🌼</div>
+                    <div class="flower flower-3">🌷</div>
+                </div>
+            </div>
+            <div class="card intro-card">
+                <h3>About bloom 🌸</h3>
+                <p class="intro-compact-text">A gentle space to ease stress, organize thoughts, and grow healthy habits.</p>
+            </div>
+            <div class="welcome-buttons">
+                <button class="btn btn-primary" onclick="navigateTo('mood-checkin', 'signin')">Sign In</button>
+                <button class="btn btn-secondary" onclick="navigateTo('mood-checkin', 'signup')">Create Account</button>
+            </div>
+            <p class="welcome-footer">Your sanctuary for mental wellness</p>
+        </div>
+    </div>
+
+
+    <!-- Mood Check-in Screen -->
+    <div id="mood-checkin-screen" class="screen">
+        <div class="mood-checkin-container">
+            <button class="back-btn-simple" onclick="navigateTo('welcome')">← Back</button>
+
+            <div class="mood-checkin-content">
+                <h2 class="checkin-title">How are you feeling right now?</h2>
+                <p class="checkin-subtitle">Let's start by checking in with yourself</p>
+
+                <div class="mood-checkin-selector">
+                    <button class="mood-checkin-btn" data-mood="😢" title="Not great"
+                        onclick="handleMoodCheckin('😢', 'not well')">
+                        <span class="mood-icon">😢</span>
+                        <span class="mood-label">Not Great</span>
+                    </button>
+                    <button class="mood-checkin-btn" data-mood="😕" title="Okay"
+                        onclick="handleMoodCheckin('😕', 'okay')">
+                        <span class="mood-icon">😕</span>
+                        <span class="mood-label">Okay</span>
+                    </button>
+                    <button class="mood-checkin-btn" data-mood="😊" title="Good"
+                        onclick="handleMoodCheckin('😊', 'good')">
+                        <span class="mood-icon">😊</span>
+                        <span class="mood-label">Good</span>
+                    </button>
+                    <button class="mood-checkin-btn" data-mood="😄" title="Great"
+                        onclick="handleMoodCheckin('😄', 'great')">
+                        <span class="mood-icon">😄</span>
+                        <span class="mood-label">Great</span>
+                    </button>
+                    <button class="mood-checkin-btn" data-mood="🤩" title="Amazing"
+                        onclick="handleMoodCheckin('🤩', 'amazing')">
+                        <span class="mood-icon">🤩</span>
+                        <span class="mood-label">Amazing</span>
+                    </button>
+                </div>
+
+                <p class="checkin-message" id="checkin-message"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sign In / Sign Up Screen -->
+    <div id="auth-screen" class="screen">
+        <div class="auth-container">
+            <div class="auth-tabs">
+                <button class="tab-btn active" onclick="switchAuthTab('signin')">Sign In</button>
+                <button class="tab-btn" onclick="switchAuthTab('signup')">Sign Up</button>
+            </div>
+
+            <!-- Sign In Form -->
+            <form id="signin-form" class="auth-form active" onsubmit="handleSignIn(event)">
+                <div class="form-group">
+                    <label for="signin-email">Email</label>
+                    <input type="email" id="signin-email" placeholder="enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="signin-password">Password</label>
+                    <input type="password" id="signin-password" placeholder="password" required>
+                </div>
+                <button type="submit" class="btn btn-primary full-width">Welcome Back</button>
+                <p class="auth-footer">
+                    Don't have an account? <a href="#" onclick="switchAuthTab('signup'); return false;">Create one</a>
+                </p>
+            </form>
+
+            <!-- Sign Up Form -->
+            <form id="signup-form" class="auth-form" onsubmit="handleSignUp(event)">
+                <div class="form-group">
+                    <label for="signup-name">Your Name</label>
+                    <input type="text" id="signup-name" placeholder="your name" required>
+                </div>
+                <div class="form-group">
+                    <label for="signup-email">Email</label>
+                    <input type="email" id="signup-email" placeholder="enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="signup-password">Password</label>
+                    <input type="password" id="signup-password" placeholder="password" required>
+                </div>
+                <div class="form-group">
+                    <label for="signup-confirm">Confirm Password</label>
+                    <input type="password" id="signup-confirm" placeholder="confirm password" required>
+                </div>
+                <button type="submit" class="btn btn-primary full-width">Begin Your Journey</button>
+                <p class="auth-footer">
+                    Already have an account? <a href="#" onclick="switchAuthTab('signin'); return false;">Sign in</a>
+                </p>
+            </form>
+
+            <button class="back-btn" onclick="navigateTo('welcome')">← Back</button>
+        </div>
+    </div>
+
+    <!-- Home Screen (Personalized) -->
+    <div id="home-screen" class="screen">
+        <div class="home-container">
+            <!-- Header -->
+            <div class="home-header">
+                <div>
+                    <h2 class="greeting" id="greeting">Hello, Welcome</h2>
+                    <p class="current-date" id="current-date"></p>
+                </div>
+                <button class="btn-icon logout-btn" onclick="handleLogout()" title="Sign out">🚪</button>
+            </div>
+
+            <!-- Mood Card -->
+            <div class="card mood-card" style="position: relative; z-index: 2;">
+                <h3>How are you feeling today?</h3>
+                <div class="mood-selector">
+                    <div class="mood-leaf" data-mood="😢" title="Not great"
+                        onclick="handleMoodCheckin('😢', 'not well')"><span>😢</span></div>
+                    <div class="mood-leaf" data-mood="😕" title="Okay" onclick="handleMoodCheckin('😕', 'okay')">
+                        <span>😕</span>
+                    </div>
+                    <div class="mood-leaf" data-mood="😊" title="Good" onclick="handleMoodCheckin('😊', 'good')">
+                        <span>😊</span>
+                    </div>
+                    <div class="mood-leaf" data-mood="😄" title="Great" onclick="handleMoodCheckin('😄', 'great')">
+                        <span>😄</span>
+                    </div>
+                    <div class="mood-leaf" data-mood="🤩" title="Amazing" onclick="handleMoodCheckin('🤩', 'amazing')">
+                        <span>🤩</span>
+                    </div>
+                </div>
+                <p class="mood-feedback" id="mood-feedback"></p>
+                <div id="mood-activity-container" style="display: none; margin-top: 15px;">
+                    <button class="btn btn-primary" onclick="startMoodActivity()">✨ Play Mood Activity</button>
+                </div>
+            </div>
+            
+
+
+
+
+            <!-- Quick Actions -->
+            <div class="quick-actions">
+                <div class="card action-card" onclick="startMoodActivity('relaxed')" style="cursor: pointer;">
+                    <div class="action-icon">🌬️</div>
+                    <h4>Breathe In/Out</h4>
+                    <p>Calm your mind</p>
+                </div>
+                <div class="card action-card" onclick="navigateTo('journal')" style="cursor: pointer;">
+                    <div class="action-icon">📔</div>
+                    <h4>Journal</h4>
+                    <p>Reflect & write</p>
+                </div>
+                <div class="card action-card" onclick="startDrawingGame()" style="cursor: pointer;">
+                    <div class="action-icon">🎨</div>
+                    <h4>Random Drawing</h4>
+                    <p>Spark creativity</p>
+                </div>
+            </div>
+
+            <!-- Wellness Tip & Habit Tracker -->
+            <div class="card wellness-card" style="position: relative;">
+                <h3>💡 Daily Wellness Tip</h3>
+                <p id="wellness-tip"></p>
+                <button onclick="refreshWellnessTip()" title="New Tip"
+                    style="position: absolute; top: 1.5rem; right: 1.5rem; background: none; border: none; font-size: 1.2rem; cursor: pointer;">🔄</button>
+
+                <hr style="border: 0; border-top: 1px solid rgba(0,0,0,0.05); margin: 15px 0;">
+
+                <div class="habit-tracker-mini">
+                    <h4>Daily Habits 🌿</h4>
+                    <div class="habit-items">
+                        <label class="habit-item">
+                            <input type="checkbox" onchange="toggleHabit(this, 'hydrate')" id="habit-hydrate">
+                            <span>💧 Hydrate</span>
+                        </label>
+                        <label class="habit-item">
+                            <input type="checkbox" onchange="toggleHabit(this, 'move')" id="habit-move">
+                            <span>🏃 Move</span>
+                        </label>
+                        <label class="habit-item">
+                            <input type="checkbox" onchange="toggleHabit(this, 'reflect')" id="habit-reflect">
+                            <span>🧘 Reflect</span>
+                        </label>
+                    </div>
+                    <div class="habit-progress">
+                        <div class="progress-bar" id="habit-progress-bar"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation Dots -->
+            <div class="nav-dots">
+                <button class="dot active" onclick="navigateTo('home')"></button>
+                <button class="dot" onclick="alert('Profile coming soon!')"></button>
+                <button class="dot" onclick="alert('Progress coming soon!')"></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Transition Overlay -->
+    <div id="transition-overlay" class="screen overlay-screen">
+        <div class="overlay-content">
+            <div class="floating-icon">🌟</div>
+            <h2 id="transition-message">Let’s play a game to lift your mood...</h2>
+        </div>
+    </div>
+
+    <!-- Game Screen (Hidden) -->
+    <div id="game-screen" class="screen">
+        <div class="game-container">
+            <button class="back-btn-simple" onclick="stopGame()">← End Activity</button>
+            <div id="game-content" class="game-content">
+                <!-- Game content injected here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Journal Screen (Simple) -->
+    <div id="journal-screen" class="screen">
+        <div class="mood-checkin-container" style="max-width: 560px;">
+            <button class="back-btn-simple" onclick="navigateTo('home')">← Back</button>
+            <div class="mood-checkin-content" style="text-align:left;">
+                <div class="journal-hero"><span class="hero-icon">📔</span><span class="hero-title">Bloom Journal</span></div>
+                <p class="checkin-subtitle">A calm space to ease stress, organize thoughts, and see your progress bloom.</p>
+                <div id="journal-prompts-simple" class="journal-prompts" style="margin:10px 0 14px;"></div>
+                <div class="journal-toolbar">
+                    <button class="chip-toggle" id="tb-bullets">• Bullets</button>
+                    <button class="chip-toggle" id="tb-checklist">☑ Checklist</button>
+                    <span class="spacer"></span>
+                    <span class="char-counter" id="char-counter">0</span>
+                </div>
+                <div class="journal-paper float-soft">
+                    <div class="journal-date" id="journal-date-today"></div>
+                    <textarea id="journal-entry" placeholder="Write your thoughts here..."></textarea>
+                </div>
+                <div class="journal-actions" style="margin-top:10px;">
+                    <button class="btn btn-primary" onclick="saveEntry()">Save</button>
+                    <button class="btn btn-secondary" onclick="clearEntry()">Clear</button>
+                    <button class="btn btn-secondary" onclick="deleteEntry()">Delete</button>
+                </div>
+                <div class="journal-footer-row">
+                    <div class="streak-badge">
+                        <span class="badge-label">Streak</span>
+                        <span class="badge-count" id="simple-streak-count">0</span>
+                        <div class="journal-garden" id="simple-garden"></div>
+                    </div>
+                    <div class="journal-history" style="margin-top:14px;">
+                        <h3 style="margin-bottom:6px;">Past Entries</h3>
+                        <div id="journal-list"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+
+    <script src="script.js"></script>
+</body>
